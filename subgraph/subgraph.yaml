@@ -1,0 +1,54 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Factory
+    network: mumbai
+    source:
+      address: "0xe799a4dD5a1e0fDFa8dAeaD25B6e18651B529382"
+      abi: Factory
+      startBlock: 26316289
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NTTContract
+      abis:
+        - name: Factory
+          file: ./abis/Factory.json
+      eventHandlers:
+        - event: NTTContractCreated(uint256,address,address,string,string,string[],string,string,uint256,uint256)
+          handler: handleNTTContractCreated
+      file: ./src/mappings/factory.ts
+templates:
+  - name: NTTEvent
+    kind: ethereum
+    network: mumbai
+    source:
+      abi: NTTEvent
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - WhitelistItem
+      abis:
+        - name: NTTEvent
+          file: ./abis/NTTEvent.json
+      eventHandlers:
+        - event: TokenMinted(address,uint256,address,address,string,string,bool)
+          handler: handleTokenMinted
+        - event: TokenBurnt(address,uint256,address,address,string,string,bool)
+          handler: handleTokenBurnt
+        - event: WhitelistAdded(address,address[])
+          handler: handleWhitelistAdded
+        - event: WhitelistRemoved(address,address[])
+          handler: handleWhitelistRemoved
+        - event: WhitelistUpdated(address,address,uint256)
+          handler: handleWhitelistUpdated
+        - event: NTTContractUpdated(uint256,address,address,string,string,string[],string,string,uint256,uint256)
+          handler: handleNTTContractUpdated
+      file: ./src/mappings/nttevent.ts

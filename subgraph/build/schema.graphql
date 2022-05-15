@@ -1,0 +1,43 @@
+type NTTContract @entity {
+  id: ID! # contractId
+  contractAddress: Bytes! # address
+  creatorAddress: Bytes! # address
+  title: String! # string
+  description: String! # string
+  links: [String!] # string[]
+  imageHash: String # string
+  associatedCommunity: String! # string
+  startDate: BigInt! # uint256
+  endDate: BigInt # uint256
+}
+
+type Token @entity {
+  id: ID!
+  contractAddress: Bytes!
+  tokenId: BigInt!
+  creatorAddress: Bytes!
+  receiverAddress: Bytes!
+  title: String!
+  associatedCommunity: String!
+  isValid: Boolean!
+}
+
+type WhitelistItem @entity {
+  id: ID!
+  contractAddress: Bytes!
+  userAddress: Bytes!
+  status: BigInt!
+}
+
+type _Schema_
+  @fulltext(
+    name: "tokenSearch"
+    language: en
+    algorithm: rank
+    include: [
+      {
+        entity: "Token"
+        fields: [{ name: "title" }, { name: "associatedCommunity" }]
+      }
+    ]
+  )
