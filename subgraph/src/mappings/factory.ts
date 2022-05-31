@@ -15,6 +15,7 @@ export function handleNTTContractCreated(event: NTTContractCreatedEvent): void {
   nttContract.associatedCommunity = event.params.associatedCommunity
   nttContract.startDate = event.params.startDate
   nttContract.endDate = event.params.endDate
+  nttContract.timeStamp = event.block.timestamp
   nttContract.save()
 
   NTTEventContract.create(event.params.contractAddress)

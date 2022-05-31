@@ -22,6 +22,7 @@ export function handleTokenMinted(event: TokenMintedEvent): void {
     token.title = event.params.title
     token.associatedCommunity = event.params.associatedCommunity
     token.isValid = event.params.isValid
+    token.timeStamp = event.block.timestamp
     token.save()
 }
 

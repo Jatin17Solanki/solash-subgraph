@@ -9,6 +9,7 @@ type NTTContract @entity {
   associatedCommunity: String! # string
   startDate: BigInt! # uint256
   endDate: BigInt # uint256
+  timeStamp: BigInt!
 }
 
 type Token @entity {
@@ -20,6 +21,7 @@ type Token @entity {
   title: String!
   associatedCommunity: String!
   isValid: Boolean!
+  timeStamp: BigInt!
 }
 
 type WhitelistItem @entity {

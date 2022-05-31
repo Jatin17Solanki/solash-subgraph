@@ -146,6 +146,15 @@ export class NTTContract extends Entity {
       this.set("endDate", Value.fromBigInt(<BigInt>value));
     }
   }
+
+  get timeStamp(): BigInt {
+    let value = this.get("timeStamp");
+    return value!.toBigInt();
+  }
+
+  set timeStamp(value: BigInt) {
+    this.set("timeStamp", Value.fromBigInt(value));
+  }
 }
 
 export class Token extends Entity {
@@ -240,6 +249,15 @@ export class Token extends Entity {
 
   set isValid(value: boolean) {
     this.set("isValid", Value.fromBoolean(value));
+  }
+
+  get timeStamp(): BigInt {
+    let value = this.get("timeStamp");
+    return value!.toBigInt();
+  }
+
+  set timeStamp(value: BigInt) {
+    this.set("timeStamp", Value.fromBigInt(value));
   }
 }
 
