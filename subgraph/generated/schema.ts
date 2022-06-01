@@ -42,6 +42,15 @@ export class NTTContract extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get contractId(): BigInt {
+    let value = this.get("contractId");
+    return value!.toBigInt();
+  }
+
+  set contractId(value: BigInt) {
+    this.set("contractId", Value.fromBigInt(value));
+  }
+
   get contractAddress(): Bytes {
     let value = this.get("contractAddress");
     return value!.toBytes();
@@ -231,6 +240,49 @@ export class Token extends Entity {
 
   set title(value: string) {
     this.set("title", Value.fromString(value));
+  }
+
+  get description(): string {
+    let value = this.get("description");
+    return value!.toString();
+  }
+
+  set description(value: string) {
+    this.set("description", Value.fromString(value));
+  }
+
+  get links(): Array<string> | null {
+    let value = this.get("links");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set links(value: Array<string> | null) {
+    if (!value) {
+      this.unset("links");
+    } else {
+      this.set("links", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get imageHash(): string | null {
+    let value = this.get("imageHash");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set imageHash(value: string | null) {
+    if (!value) {
+      this.unset("imageHash");
+    } else {
+      this.set("imageHash", Value.fromString(<string>value));
+    }
   }
 
   get associatedCommunity(): string {

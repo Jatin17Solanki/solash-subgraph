@@ -13,31 +13,43 @@ import { NTTContract, Token, WhitelistItem } from "../../generated/schema"
 import { BigInt } from "@graphprotocol/graph-ts"
 
 export function handleTokenMinted(event: TokenMintedEvent): void {
-    let _id = event.params.contractAddress.toHexString() + "_" + event.params.tokenId.toString()
-    let token = new Token(_id)
-    token.contractAddress = event.params.contractAddress
-    token.tokenId = event.params.tokenId
-    token.creatorAddress = event.params.creatorAddress
-    token.receiverAddress = event.params.receiverAddress
-    token.title = event.params.title
-    token.associatedCommunity = event.params.associatedCommunity
-    token.isValid = event.params.isValid
-    token.timeStamp = event.block.timestamp
-    token.save()
-}
-
-export function handleTokenBurnt(event: TokenBurntEvent): void {
-    let _id = event.params.contractAddress.toHexString()  + "_" + event.params.tokenId.toString()
-    let token = Token.load(_id)
-    if(token) {
+    let nttContract = NTTContract.load(event.params.contractAddress.toHexString())
+    if(nttContract){
+        let _id = event.params.contractAddress.toHexString() + "_" + event.params.tokenId.toString()
+        let token = new Token(_id)
         token.contractAddress = event.params.contractAddress
         token.tokenId = event.params.tokenId
         token.creatorAddress = event.params.creatorAddress
         token.receiverAddress = event.params.receiverAddress
         token.title = event.params.title
+        token.description = nttContract.description
+        token.links = nttContract.links
+        token.imageHash = nttContract.imageHash
         token.associatedCommunity = event.params.associatedCommunity
         token.isValid = event.params.isValid
+        token.timeStamp = event.block.timestamp
         token.save()
+    }
+}
+
+export function handleTokenBurnt(event: TokenBurntEvent): void {
+    let nttContract = NTTContract.load(event.params.contractAddress.toHexString())
+    if(nttContract){
+        let _id = event.params.contractAddress.toHexString()  + "_" + event.params.tokenId.toString()
+        let token = Token.load(_id)
+        if(token) {
+            token.contractAddress = event.params.contractAddress
+            token.tokenId = event.params.tokenId
+            token.creatorAddress = event.params.creatorAddress
+            token.receiverAddress = event.params.receiverAddress
+            token.title = event.params.title
+            token.description = nttContract.description
+            token.links = nttContract.links
+            token.imageHash = nttContract.imageHash
+            token.associatedCommunity = event.params.associatedCommunity
+            token.isValid = event.params.isValid
+            token.save()
+        }
     }
 }
 
@@ -106,8 +118,9 @@ export function handleWhitelistUpdated(event: WhitelistUpdatedEvent): void {
 }
 
 export function handleNTTContractUpdated(event: NTTContractUpdatedEvent): void {
-    let nttContract = NTTContract.load(event.params.contractId.toString())
+    let nttContract = NTTContract.load(event.params.contractAddress.toHexString())
     if(nttContract){
+        nttContract.contractId = event.params.contractId
         nttContract.contractAddress = event.params.contractAddress
         nttContract.creatorAddress = event.params.creatorAddress
         nttContract.title = event.params.title

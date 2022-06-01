@@ -1,5 +1,6 @@
 type NTTContract @entity {
-  id: ID! # contractId
+  id: ID! # contractAddress
+  contractId: BigInt!
   contractAddress: Bytes! # address
   creatorAddress: Bytes! # address
   title: String! # string
@@ -19,6 +20,9 @@ type Token @entity {
   creatorAddress: Bytes!
   receiverAddress: Bytes!
   title: String!
+  description: String! # string
+  links: [String!] # string[]
+  imageHash: String # string
   associatedCommunity: String!
   isValid: Boolean!
   timeStamp: BigInt!

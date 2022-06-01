@@ -5,8 +5,9 @@ import { NTTContract } from "../../generated/schema"
 import { NTTEvent as NTTEventContract} from "../../generated/templates"
 
 export function handleNTTContractCreated(event: NTTContractCreatedEvent): void {
-  let nttContract = new NTTContract(event.params.contractId.toString())
+  let nttContract = new NTTContract(event.params.contractAddress.toHexString())
   nttContract.contractAddress = event.params.contractAddress
+  nttContract.contractId = event.params.contractId
   nttContract.creatorAddress = event.params.creatorAddress
   nttContract.title = event.params.title
   nttContract.description = event.params.description
