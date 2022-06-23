@@ -233,6 +233,15 @@ export class Token extends Entity {
     this.set("receiverAddress", Value.fromBytes(value));
   }
 
+  get transactionHash(): Bytes {
+    let value = this.get("transactionHash");
+    return value!.toBytes();
+  }
+
+  set transactionHash(value: Bytes) {
+    this.set("transactionHash", Value.fromBytes(value));
+  }
+
   get title(): string {
     let value = this.get("title");
     return value!.toString();

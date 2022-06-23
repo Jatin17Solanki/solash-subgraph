@@ -19,6 +19,7 @@ type Token @entity {
   tokenId: BigInt!
   creatorAddress: Bytes!
   receiverAddress: Bytes!
+  transactionHash: Bytes!
   title: String!
   description: String! # string
   links: [String!] # string[]

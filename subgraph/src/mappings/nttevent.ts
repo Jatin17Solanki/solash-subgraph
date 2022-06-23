@@ -21,6 +21,7 @@ export function handleTokenMinted(event: TokenMintedEvent): void {
         token.tokenId = event.params.tokenId
         token.creatorAddress = event.params.creatorAddress
         token.receiverAddress = event.params.receiverAddress
+        token.transactionHash = event.transaction.hash
         token.title = event.params.title
         token.description = nttContract.description
         token.links = nttContract.links
@@ -42,6 +43,7 @@ export function handleTokenBurnt(event: TokenBurntEvent): void {
             token.tokenId = event.params.tokenId
             token.creatorAddress = event.params.creatorAddress
             token.receiverAddress = event.params.receiverAddress
+            token.transactionHash = event.transaction.hash
             token.title = event.params.title
             token.description = nttContract.description
             token.links = nttContract.links
